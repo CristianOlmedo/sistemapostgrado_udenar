@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'coordinador' => [
+            'driver' => 'session',
+            'provider' => 'coordinadores',
+        ],
     ],
 
     /*
@@ -65,10 +70,10 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'coordinadores' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Coordinador::class,
+        ],
     ],
 
     /*
@@ -93,7 +98,14 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'table' => 'password_reset_tokens',
+            'table' => 'password_reset_tokens', // Asegúrate de que esta tabla exista
+            'expire' => 60, // El token de reseteo expira en 60 minutos
+            'throttle' => 60, // Tiempo de espera antes de poder solicitar otro token
+        ],
+
+        'coordinadores' => [
+            'provider' => 'coordinadores',
+            'table' => 'password_reset_tokens', // Puedes usar la misma tabla o crear una separada
             'expire' => 60,
             'throttle' => 60,
         ],
