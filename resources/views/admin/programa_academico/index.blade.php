@@ -1,54 +1,60 @@
 @extends('adminlte::page')
 
-@section('title', 'Presidente')
+@section('title', 'Programa Académico')
 
 @section('content_header')
-    <h1>Lista de Presidentes</h1>
+    <h1>Lista de Programas Académicos</h1>
 @stop
 
 @section('content')
-    <p>Bienvenido a la página de gestión de presidentes.</p>
+    <p>Bienvenido a la página de gestión de programas académicos.</p>
 
-    {{-- Botón para crear un nuevo presidente --}}
-    <form action="{{ route('presidente.create') }}" method="GET">
+    {{-- Botón para crear un nuevo programa académico --}}
+    <form action="{{ route('programa_academico.create') }}" method="GET">
         <button type="submit" class="btn btn-primary mb-3">
-            Crear Presidente
+            Crear Programa Académico
         </button>
     </form>
 
-    {{-- Tabla de presidentes --}}
+    {{-- Tabla de programas académicos --}}
     <table class="table table-bordered">
         <thead>
             <tr>
                 <th>#</th>
-                <th>Nombre Completo</th>
-                <th>Correo Electrónico</th>
-                <th>Número de Identificación</th>
-                <th>Teléfono</th>
-                <th>Departamento o Facultad</th>
-                <th>Programa Académico</th>
-                <th>Estado</th>
+                <th>Código SNIES</th>
+                <th>Nombre del Programa</th>
+                <th>Descripción</th>
+                <th>Logo</th>
+                <th>Correo</th>
+                <th>Fecha de Resolución</th>
+                <th>Número de Resolución</th>
+                <th>Archivo de Resolución</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($presidentes as $presidente)
+            @foreach ($programas as $programa)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $presidente->nombre_completo }}</td>
-                    <td>{{ $presidente->correo_electronico }}</td>
-                    <td>{{ $presidente->numero_identificacion }}</td>
-                    <td>{{ $presidente->telefono }}</td>
-                    <td>{{ $presidente->departamento_o_facultad }}</td>
-                    <td>{{ $presidente->programa_academico }}</td>
-                    <td>{{ $presidente->estado ? 'Activo' : 'Inactivo' }}</td>
+                    <td>{{ $programa->codigo_snies }}</td>
+                    <td>{{ $programa->nombre_programa }}</td>
+                    <td>{{ $programa->descripcion }}</td>
+                    <td>
+                        <img src="{{ asset('storage/' . $programa->logo) }}" alt="Logo" width="100">
+                    </td>
+                    <td>{{ $programa->correo }}</td>
+                    <td>{{ $programa->fecha_resolucion->format('d/m/Y') }}</td>
+                    <td>{{ $programa->numero_resolucion }}</td>
+                    <td>
+                        <a href="{{ asset('storage/' . $programa->archivo_resolucion) }}" target="_blank">Ver Archivo</a>
+                    </td>
                     <td>
                         {{-- Botones de editar y eliminar --}}
-                        <a href="{{ route('presidente.edit', $presidente->id) }}" class="btn btn-sm btn-warning">Editar</a>
-                        <form action="{{ route('presidente.destroy', $presidente->id) }}" method="POST" style="display:inline;" id="delete-form-{{ $presidente->id }}">
+                        <a href="{{ route('programa_academico.edit', $programa->id) }}" class="btn btn-sm btn-warning">Editar</a>
+                        <form action="{{ route('programa_academico.destroy', $programa->id) }}" method="POST" style="display:inline;" id="delete-form-{{ $programa->id }}">
                             @csrf
                             @method('DELETE')
-                            <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $presidente->id }})">Eliminar</button>
+                            <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $programa->id }})">Eliminar</button>
                         </form>
                     </td>
                 </tr>

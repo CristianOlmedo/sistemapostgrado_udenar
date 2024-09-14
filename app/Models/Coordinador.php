@@ -10,6 +10,9 @@ class Coordinador extends Authenticatable
 {
     use Notifiable, HasRoles;
 
+    protected $table = 'coordinadores'; // Indica el nombre de la tabla
+    protected $dates = ['fecha_nacimiento', 'fecha_vinculacion'];
+
     protected $fillable = [
         'nombre',
         'identificacion',
@@ -24,7 +27,7 @@ class Coordinador extends Authenticatable
         'password',
     ];
 
-    protected $hidden = [ 
+    protected $hidden = [
         'password',
         'remember_token',
     ];
@@ -34,7 +37,8 @@ class Coordinador extends Authenticatable
     ];
 
     // Relación con Programa Académico
-    public function programaAcademico() {
+    public function programaAcademico()
+    {
         return $this->belongsTo(ProgramaAcademico::class);
     }
 }
