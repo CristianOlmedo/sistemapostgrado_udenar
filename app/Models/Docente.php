@@ -6,22 +6,20 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
-class Auxiliar extends Authenticatable
+class Docente extends Authenticatable
 {
     use Notifiable, HasRoles;
 
     protected $fillable = [
         'nombre',
         'identificacion',
-        'programa_academico_id',
         'direccion',
         'telefono',
         'correo',
         'genero',
         'fecha_nacimiento',
-        'fecha_vinculacion',
-        'acuerdo_vinculacion',
-        'password',
+        'formacion_academica',
+        'area_conocimiento',
     ];
 
     protected $hidden = [
@@ -31,10 +29,7 @@ class Auxiliar extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'fecha_nacimiento' => 'date',
     ];
 
-    // Relación con Programa Académico
-    public function programa() {
-        return $this->belongsTo(ProgramaAcademico::class, 'programa_id');
-    }
 }

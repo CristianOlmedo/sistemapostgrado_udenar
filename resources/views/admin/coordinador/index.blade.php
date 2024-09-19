@@ -40,8 +40,8 @@
                     <td>{{ $coordinador->telefono }}</td>
                     <td>{{ $coordinador->direccion }}</td>
                     <td>{{ $coordinador->genero }}</td>
-                    <td>{{ $coordinador->fecha_nacimiento ? $coordinador->fecha_nacimiento->format('d/m/Y') : '-' }}</td>
-                    <td>{{ $coordinador->fecha_vinculacion ? $coordinador->fecha_vinculacion->format('d/m/Y') : '-' }}</td>
+                    <td>{{ $coordinador->fecha_nacimiento }}</td>
+                    <td>{{ $coordinador->fecha_vinculacion}}</td>
                     <td>
                         <!-- Acciones como editar o eliminar -->
                         <a href="{{ route('coordinador.edit', $coordinador->id) }}" class="btn btn-warning btn-sm">Editar</a>

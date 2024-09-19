@@ -1,10 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PresidenteController;
 use App\Http\Controllers\CoordinadorController;
 use App\Http\Controllers\ProgramaAcademicoController;
+use App\Http\Controllers\AuxiliarController;
 use App\Http\Controllers\CohorteController;
+use App\Http\Controllers\DocenteController;
+use App\Http\Controllers\EstudianteController;
+use Illuminate\Support\Facades\Auth;
+
 
 
 /*
@@ -21,6 +27,7 @@ use App\Http\Controllers\CohorteController;
 
 Auth::routes();
 
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
@@ -34,12 +41,22 @@ Route::delete('admin/presidente/{presidente}', [PresidenteController::class, 'de
 
 
 // Rutas para Coordinador
+<<<<<<< HEAD
+Route::get('/admin/coordinador', [CoordinadorController::class, 'index'])->name('coordinador.index');
+Route::get('/coordinador/crear', [CoordinadorController::class, 'create'])->name('coordinador.create');
+Route::post('/coordinador', [CoordinadorController::class, 'store'])->name('coordinador.store');
+Route::get('admin/coordinador/{id}/edit', [CoordinadorController::class, 'edit'])->name('coordinador.edit');
+Route::put('admin/coordinador/{id}', [CoordinadorController::class, 'update'])->name('coordinador.update');
+Route::delete('admin/coordinador/{id}', [CoordinadorController::class, 'destroy'])->name('coordinador.destroy');
+
+=======
 Route::get('admin/coordinador', [CoordinadorController::class, 'index'])->name('coordinador.index');
 Route::get('admin/coordinador/create', [CoordinadorController::class, 'create'])->name('coordinador.create');
 Route::post('admin/coordinador', [CoordinadorController::class, 'store'])->name('coordinador.store');
 Route::get('admin/coordinador/{coordinador}/edit', [CoordinadorController::class, 'edit'])->name('coordinador.edit');
 Route::put('admin/coordinador/{coordinador}', [CoordinadorController::class, 'update'])->name('coordinador.update');
 Route::delete('admin/coordinador/{coordinador}', [CoordinadorController::class, 'destroy'])->name('coordinador.destroy');
+>>>>>>> 9379f6f6d516d80177ce5f373d9f0ba0e576004c
 
 
 // Rutas para Programa Académico
@@ -58,3 +75,31 @@ Route::post('admin/cohorte', [CohorteController::class, 'store'])->name('cohorte
 Route::get('admin/cohorte/{cohorte}/edit', [CohorteController::class, 'edit'])->name('cohorte.edit');
 Route::put('admin/cohorte/{cohorte}', [CohorteController::class, 'update'])->name('cohorte.update');
 Route::delete('admin/cohorte/{cohorte}', [CohorteController::class, 'destroy'])->name('cohorte.destroy');
+<<<<<<< HEAD
+
+//Rutas para Auxiliares
+Route::resource('auxiliar', AuxiliarController::class);
+Route::get('admin/auxiliar', [AuxiliarController::class, 'index'])->name('auxiliares.index');
+Route::get('admin/auxiliares/create', [AuxiliarController::class, 'create'])->name('auxiliares.create');
+Route::post('admin/auxiliares', [AuxiliarController::class, 'store'])->name('auxiliares.store');
+Route::get('admin/auxiliares/{id}/edit', [AuxiliarController::class, 'edit'])->name('auxiliares.edit');
+Route::put('admin/auxiliares/{id}', [AuxiliarController::class, 'update'])->name('auxiliares.update');
+Route::delete('admin/auxiliares/{id}', [AuxiliarController::class, 'destroy'])->name('auxiliares.destroy');
+
+// Rutas para Docentes
+Route::get('/admin/docente', [DocenteController::class, 'index'])->name('docente.index');
+Route::get('/docente/crear', [DocenteController::class, 'create'])->name('docente.create');
+Route::post('/docente', [DocenteController::class, 'store'])->name('docente.store');
+Route::get('admin/docente/{id}/edit', [DocenteController::class, 'edit'])->name('docente.edit');
+Route::put('admin/docente/{id}', [DocenteController::class, 'update'])->name('docente.update');
+Route::delete('admin/docente/{id}', [DocenteController::class, 'destroy'])->name('docente.destroy');
+
+// Rutas para Estudiantes
+Route::get('/admin/estudiante', [EstudianteController::class, 'index'])->name('estudiante.index');
+Route::get('/estudiante/crear', [EstudianteController::class, 'create'])->name('estudiante.create');
+Route::post('/estudiante', [EstudianteController::class, 'store'])->name('estudiante.store');
+Route::get('admin/estudiante/{id}/edit', [EstudianteController::class, 'edit'])->name('estudiante.edit');
+Route::put('admin/estudiante/{id}', [EstudianteController::class, 'update'])->name('estudiante.update');
+Route::delete('admin/estudiante/{id}', [EstudianteController::class, 'destroy'])->name('estudiante.destroy');
+=======
+>>>>>>> 9379f6f6d516d80177ce5f373d9f0ba0e576004c
