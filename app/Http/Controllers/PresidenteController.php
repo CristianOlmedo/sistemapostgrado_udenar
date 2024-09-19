@@ -19,28 +19,37 @@ class PresidenteController extends Controller
 
     public function create()
     {
-        return view('admin.presidente.create');
+        $programas = ProgramaAcademico::all(); // Asegúrate de obtener los programas académicos
+        return view('admin.presidente.create', compact('programas'));
     }
 
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nombre' => 'required|string|max:255',
-            'correo' => 'required|email|max:255|unique:presidentes,correo',
-            'identificacion' => 'required|string|max:20|unique:presidentes,identificacion',
+            'nombre_completo' => 'required|string|max:255',
+            'correo_electronico' => 'required|email|max:255|unique:presidentes,correo_electronico',
+            'numero_identificacion' => 'required|string|max:20|unique:presidentes,numero_identificacion',
             'telefono' => 'required|string|max:20',
-            'direccion' => 'required|string|max:255',
+            'direccion' => 'nullable|string|max:255',
             'fecha_nacimiento' => 'nullable|date',
             'fecha_inicio_gestion' => 'required|date',
             'fecha_fin_gestion' => 'nullable|date',
-            'departamento' => 'required|string|max:255',
-            'programa_academico_id' => 'required|exists:programa_academicos,id',
-            'estado' => 'required|string|max:10', // Validación cambiada
+            'departamento_o_facultad' => 'required|string|max:255',
+            'programa_academico' => 'required|string|max:255',  // Corregido aquí
+            'estado' => 'required|string|max:10',
             'resoluciones' => 'nullable|file|mimes:pdf|max:2048',
         ]);
 
         // Convertir el estado a booleano antes de guardar
         $validatedData['estado'] = $validatedData['estado'] === 'Activo' ? 1 : 0;
+
+        // Manejo del archivo de resoluciones
+        if ($request->hasFile('resoluciones')) {
+            $file = $request->file('resoluciones');
+            $filename = time() . '-' . $file->getClientOriginalName();
+            $file->storeAs('resoluciones', $filename, 'public');
+            $validatedData['resoluciones'] = $filename;
+        }
 
         try {
             Presidente::create($validatedData);
@@ -53,6 +62,7 @@ class PresidenteController extends Controller
         }
     }
 
+
     public function edit(Presidente $presidente)
     {
         $programas = ProgramaAcademico::all();
@@ -62,21 +72,20 @@ class PresidenteController extends Controller
     public function update(Request $request, Presidente $presidente)
     {
         $validatedData = $request->validate([
-            'nombre' => 'required|string|max:255',
+            'nombre_completo' => 'required|string|max:255',
             'correo' => 'required|email|max:255',
             'identificacion' => 'required|string|max:20',
             'telefono' => 'required|string|max:20',
-            'direccion' => 'required|string|max:255',
+            'direccion' => 'nullable|string|max:255',
             'fecha_nacimiento' => 'nullable|date',
             'fecha_inicio_gestion' => 'required|date',
             'fecha_fin_gestion' => 'nullable|date',
             'departamento' => 'required|string|max:255',
-            'programa_academico_id' => 'required|exists:programa_academicos,id',
-            'estado' => 'required|string|max:10', // Validación cambiada
+            'programa_academico' => 'required|string|max:255',
+            'estado' => 'required|string|max:10',
             'resoluciones' => 'nullable|file|mimes:pdf|max:2048',
         ]);
 
-        // Convertir el estado a booleano antes de actualizar
         $validatedData['estado'] = $validatedData['estado'] === 'Activo' ? 1 : 0;
 
         try {

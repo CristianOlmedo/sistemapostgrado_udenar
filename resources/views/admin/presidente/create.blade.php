@@ -50,27 +50,26 @@
         </div>
 
         <div class="form-group">
-            <label for="departamento_o_facultad">Departamento o Facultad</label>
-            <input type="text" name="departamento_o_facultad" id="departamento_o_facultad" class="form-control" required>
+            <label for="departamento">Departamento o Facultad</label>
+            <input type="text" name="departamento" id="departamento" class="form-control" required>
         </div>
 
         <div class="form-group">
-            <label for="programa_academico">Programa académico</label>
+            <label for="programa_academico">Programa:</label>
             <input type="text" name="programa_academico" id="programa_academico" class="form-control" required>
         </div>
 
         <div class="form-group">
             <label for="estado">Estado</label>
             <select name="estado" id="estado" class="form-control" required>
-                <option value="1">Activo</option>
-                <option value="0">Inactivo</option>
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="resoluciones_o_nombramientos">Resoluciones o nombramientos</label>
-            <input type="file" name="resoluciones_o_nombramientos" id="resoluciones_o_nombramientos"
-                class="form-control">
+            <label for="resoluciones">Resoluciones o nombramientos</label>
+            <input type="file" name="resoluciones" id="resoluciones" class="form-control">
         </div>
 
         <button type="submit" class="btn btn-primary">Crear</button>

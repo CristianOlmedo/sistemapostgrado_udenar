@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\QueryException;
+use App\Models\ProgramaAcademico;
 
 class CoordinadorController extends Controller
 {
@@ -18,7 +19,8 @@ class CoordinadorController extends Controller
 
     public function create()
     {
-        return view('admin.coordinador.create');
+        $programas = ProgramaAcademico::all(); // Obtén los programas académicos
+        return view('admin.coordinador.create', compact('programas'));
     }
 
     public function store(Request $request)
@@ -27,13 +29,14 @@ class CoordinadorController extends Controller
             'nombre' => 'required|string|max:255',
             'identificacion' => 'required|string|max:20|unique:coordinadores,identificacion',
             'programa_academico_id' => 'required|exists:programa_academicos,id',
-            'direccion' => 'required|string|max:255',
+            'direccion' => 'nullable|string|max:255',
             'telefono' => 'required|string|max:20',
             'correo' => 'required|email|max:255|unique:coordinadores,correo',
             'genero' => 'required|string|max:10',
-            'fecha_nacimiento' => 'required|date',
+            'fecha_nacimiento' => 'nullable|date',
             'fecha_vinculacion' => 'required|date',
             'acuerdo_vinculacion' => 'nullable|file|mimes:pdf|max:2048',
+            'password' => 'required|string|min:8|confirmed',
         ]);
 
         try {
@@ -42,14 +45,14 @@ class CoordinadorController extends Controller
             return redirect()->route('coordinador.index');
         } catch (QueryException $e) {
             Log::error('Error al crear coordinador: ' . $e->getMessage());
-            Session::flash('swal:error', 'Error al crear el coordinador.');
-            return redirect()->back()->withInput();
+            return redirect()->back()->withErrors(['error' => 'Error al crear el coordinador.'])->withInput();
         }
     }
 
     public function edit(Coordinador $coordinador)
     {
-        return view('admin.coordinador.edit', compact('coordinador'));
+        $programas = ProgramaAcademico::all(); // Obtén los programas académicos para el formulario de edición
+        return view('admin.coordinador.edit', compact('coordinador', 'programas'));
     }
 
     public function update(Request $request, Coordinador $coordinador)
@@ -58,11 +61,11 @@ class CoordinadorController extends Controller
             'nombre' => 'required|string|max:255',
             'identificacion' => 'required|string|max:20',
             'programa_academico_id' => 'required|exists:programa_academicos,id',
-            'direccion' => 'required|string|max:255',
+            'direccion' => 'nullable|string|max:255',
             'telefono' => 'required|string|max:20',
             'correo' => 'required|email|max:255',
             'genero' => 'required|string|max:10',
-            'fecha_nacimiento' => 'required|date',
+            'fecha_nacimiento' => 'nullable|date',
             'fecha_vinculacion' => 'required|date',
             'acuerdo_vinculacion' => 'nullable|file|mimes:pdf|max:2048',
         ]);

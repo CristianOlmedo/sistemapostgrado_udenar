@@ -21,7 +21,7 @@ class Presidente extends Authenticatable
         'fecha_inicio_gestion',
         'fecha_fin_gestion',
         'departamento_o_facultad',
-        'programa_academico',
+        'programa_academico',  
         'estado',
         'resoluciones_o_nombramientos',
     ];

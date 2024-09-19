@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PresidenteController;
 use App\Http\Controllers\CoordinadorController;
-use App\Http\Controllers\Auth\CoordinadorAuthController;
 use App\Http\Controllers\ProgramaAcademicoController;
 use App\Http\Controllers\CohorteController;
 
@@ -24,14 +23,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-// Rutas de autenticación para Coordinadores y Auxiliares
-Route::prefix('coordinador')->group(function () {
-    Route::get('login', [CoordinadorAuthController::class, 'showLoginForm'])->name('coordinador.login');
-    Route::post('login', [CoordinadorAuthController::class, 'login']);
-    Route::get('register', [CoordinadorAuthController::class, 'showRegisterForm'])->name('coordinador.register');
-    Route::post('register', [CoordinadorAuthController::class, 'register']);
-    Route::post('logout', [CoordinadorAuthController::class, 'logout'])->name('coordinador.logout');
-});
 
 // Rutas para Presidente
 Route::get('admin/presidente', [PresidenteController::class, 'index'])->name('presidente.index');
@@ -53,7 +44,7 @@ Route::delete('admin/coordinador/{coordinador}', [CoordinadorController::class, 
 
 // Rutas para Programa Académico
 Route::get('admin/programa', [ProgramaAcademicoController::class, 'index'])->name('programa_academico.index');
-Route::get('admin/programa/create', [ProgramaAcademicoController::class, 'create'])->name('programa_academico.create');
+Route::get('/programa_academico/create', [ProgramaAcademicoController::class, 'create'])->name('programa_academico.create');
 Route::post('admin/programa', [ProgramaAcademicoController::class, 'store'])->name('programa_academico.store');
 Route::get('admin/programa/{programaAcademico}/edit', [ProgramaAcademicoController::class, 'edit'])->name('programa_academico.edit');
 Route::put('admin/programa/{programaAcademico}', [ProgramaAcademicoController::class, 'update'])->name('programa_academico.update');

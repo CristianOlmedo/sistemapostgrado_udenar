@@ -19,7 +19,8 @@ class CohorteController extends Controller
 
     public function create()
     {
-        return view('admin.cohorte.create');
+        $programas = ProgramaAcademico::all(); 
+        return view('admin.cohorte.create', compact('programas'));
     }
 
     public function store(Request $request)
@@ -30,7 +31,7 @@ class CohorteController extends Controller
             'programa_id' => 'required|exists:programa_academicos,id',
             'fecha_inicio' => 'required|date',
             'fecha_fin' => 'required|date',
-            'num_estudiantes_matriculados' => 'required|integer|min:0',
+            'numero_estudiantes_matriculados' => 'required|integer|min:0',
         ]);
 
         try {

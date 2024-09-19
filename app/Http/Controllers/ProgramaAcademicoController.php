@@ -47,7 +47,7 @@ class ProgramaAcademicoController extends Controller
 
     public function edit(ProgramaAcademico $programaAcademico)
     {
-        return view('admin.programa.edit', compact('programaAcademico'));
+        return view('admin.programa_academico.edit', compact('programaAcademico'));
     }
 
     public function update(Request $request, ProgramaAcademico $programaAcademico)

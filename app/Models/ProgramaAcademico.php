@@ -21,5 +21,7 @@ class ProgramaAcademico extends Model
     ];
 
     // Si quieres convertir la fecha en un formato legible, puedes usar la siguiente propiedad
-    protected $dates = ['fecha_resolucion'];
+    protected $casts = [
+        'fecha_resolucion'=> 'date',
+    ];
 }
