@@ -15,5 +15,8 @@
     },
     "dependencies": {
         "sweetalert2": "^11.14.0"
+    },
+    "optionalDependencies": {
+        "fsevents": "^2.3.3"
     }
 }

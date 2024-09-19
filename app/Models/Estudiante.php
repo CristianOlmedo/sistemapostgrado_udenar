@@ -6,22 +6,24 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
-class Auxiliar extends Authenticatable
+class Estudiante extends Authenticatable
 {
     use Notifiable, HasRoles;
 
     protected $fillable = [
         'nombre',
+        'cohorte_id',
         'identificacion',
-        'programa_academico_id',
         'direccion',
+        'codigo_estudiantil',
+        'foto',
         'telefono',
         'correo',
         'genero',
         'fecha_nacimiento',
-        'fecha_vinculacion',
-        'acuerdo_vinculacion',
-        'password',
+        'semestre',
+        'fecha_ingreso',
+        'fecha_egreso',
     ];
 
     protected $hidden = [
@@ -31,10 +33,12 @@ class Auxiliar extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'fecha_nacimiento' => 'date',
     ];
 
     // Relación con Programa Académico
-    public function programa() {
-        return $this->belongsTo(ProgramaAcademico::class, 'programa_id');
+    public function cohorte() {
+        return $this->belongsTo(Cohorte::class, 'cohorte_id');
     }
+
 }
