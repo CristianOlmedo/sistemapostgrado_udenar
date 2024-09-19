@@ -2,122 +2,83 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Coordinador; // Asegúrate de tener este modelo
+use App\Models\Coordinador;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Database\QueryException;
+use App\Models\ProgramaAcademico;
 
 class CoordinadorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        // Obtener todos los coordinadores
         $coordinadores = Coordinador::all();
-
-        // Pasar los coordinadores a la vista
         return view('admin.coordinador.index', compact('coordinadores'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view('admin.coordinador.create');
+        $programas = ProgramaAcademico::all(); // Obtén los programas académicos
+        return view('admin.coordinador.create', compact('programas'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        // Validar los datos del formulario
         $validatedData = $request->validate([
             'nombre' => 'required|string|max:255',
-            'correo' => 'required|email|unique:coordinadores',
-            'identificacion' => 'required|string|max:20|unique:coordinadores',
-            'telefono' => 'required|string|max:15',
+            'identificacion' => 'required|string|max:20|unique:coordinadores,identificacion',
+            'programa_academico_id' => 'required|exists:programa_academicos,id',
             'direccion' => 'nullable|string|max:255',
-            'genero' => 'required|string',
+            'telefono' => 'required|string|max:20',
+            'correo' => 'required|email|max:255|unique:coordinadores,correo',
+            'genero' => 'required|string|max:10',
             'fecha_nacimiento' => 'nullable|date',
             'fecha_vinculacion' => 'required|date',
             'acuerdo_vinculacion' => 'nullable|file|mimes:pdf|max:2048',
+            'password' => 'required|string|min:8|confirmed',
         ]);
 
-        // Crear nuevo coordinador
-        $coordinador = new Coordinador($validatedData);
-
-        // Si hay un archivo, guardarlo en el almacenamiento y guardar la ruta
-        if ($request->hasFile('acuerdo_vinculacion')) {
-            $filePath = $request->file('acuerdo_vinculacion')->store('acuerdos');
-            $coordinador->acuerdo_vinculacion = $filePath;
+        try {
+            Coordinador::create($validatedData);
+            Session::flash('swal:success', 'Coordinador creado correctamente.');
+            return redirect()->route('coordinador.index');
+        } catch (QueryException $e) {
+            Log::error('Error al crear coordinador: ' . $e->getMessage());
+            return redirect()->back()->withErrors(['error' => 'Error al crear el coordinador.'])->withInput();
         }
-
-        // Guardar el coordinador en la base de datos
-        $coordinador->save();
-
-        // Redirigir con un mensaje de éxito
-        return redirect()->route('coordinador.index')->with('success', 'Coordinador creado correctamente.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Coordinador $coordinador)
-    {
-        return view('admin.coordinador.show', compact('coordinador'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Coordinador $coordinador)
     {
-        return view('admin.coordinador.edit', compact('coordinador'));
+        $programas = ProgramaAcademico::all(); // Obtén los programas académicos para el formulario de edición
+        return view('admin.coordinador.edit', compact('coordinador', 'programas'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Coordinador $coordinador)
     {
-        // Validar los datos del formulario
         $validatedData = $request->validate([
             'nombre' => 'required|string|max:255',
-            'correo' => 'required|email|unique:coordinadores,correo,' . $coordinador->id,
-            'identificacion' => 'required|string|max:20|unique:coordinadores,identificacion,' . $coordinador->id,
-            'telefono' => 'required|string|max:15',
+            'identificacion' => 'required|string|max:20',
+            'programa_academico_id' => 'required|exists:programa_academicos,id',
             'direccion' => 'nullable|string|max:255',
-            'genero' => 'required|string',
+            'telefono' => 'required|string|max:20',
+            'correo' => 'required|email|max:255',
+            'genero' => 'required|string|max:10',
             'fecha_nacimiento' => 'nullable|date',
             'fecha_vinculacion' => 'required|date',
             'acuerdo_vinculacion' => 'nullable|file|mimes:pdf|max:2048',
         ]);
 
-        // Actualizar los datos del coordinador
         $coordinador->update($validatedData);
-
-        // Si se carga un nuevo archivo, reemplazar el anterior
-        if ($request->hasFile('acuerdo_vinculacion')) {
-            $filePath = $request->file('acuerdo_vinculacion')->store('acuerdos');
-            $coordinador->acuerdo_vinculacion = $filePath;
-        }
-
-        // Guardar los cambios
-        $coordinador->save();
-
-        return redirect()->route('coordinador.index')->with('success', 'Coordinador actualizado correctamente.');
+        Session::flash('swal:success', 'Coordinador actualizado correctamente.');
+        return redirect()->route('coordinador.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Coordinador $coordinador)
     {
-        // Eliminar el coordinador
         $coordinador->delete();
-
-        return redirect()->route('coordinador.index')->with('success', 'Coordinador eliminado correctamente.');
+        Session::flash('swal:success', 'Coordinador eliminado correctamente.');
+        return redirect()->route('coordinador.index');
     }
 }

@@ -15,13 +15,16 @@ class CreateCoordinadoresTable extends Migration
             $table->string('identificacion')->unique();
             $table->string('telefono');
             $table->string('direccion')->nullable();
+            $table->foreignId('programa_academico_id')->constrained()->onDelete('cascade'); // Agregar este campo
             $table->string('genero');
-            $table->date('fecha_nacimiento')->nullable();
+            $table->date('fecha_nacimiento');
             $table->date('fecha_vinculacion');
-            $table->string('acuerdo_vinculacion')->nullable();
+            $table->string('acuerdo_vinculacion');
+            $table->string('password');
             $table->timestamps();
         });
     }
+
 
     public function down()
     {
