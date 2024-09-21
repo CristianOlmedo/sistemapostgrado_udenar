@@ -82,8 +82,8 @@ class EstudianteController extends Controller
      */
     public function edit(string $id)
     {
-        $programas = Cohorte::all();
-        return view('admin.estudiante.edit', compact('estudiante', 'cohortes'));
+        $estudiante = Estudiante::all();
+        return view('admin.estudiante.edit', compact('estudiante'));
     }
 
     /**

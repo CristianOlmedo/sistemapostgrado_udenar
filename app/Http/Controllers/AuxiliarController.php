@@ -76,7 +76,7 @@ class AuxiliarController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Auxiliar $auxiliar)
     {
         $programas = ProgramaAcademico::all();
         return view('admin.auxiliar.edit', compact('auxiliar', 'programas'));

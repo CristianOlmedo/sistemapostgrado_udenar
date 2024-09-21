@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Auxiliar;
+use Illuminate\Support\Facades\Log;
 use App\Models\Docente;
-use App\Models\ProgramaAcademico;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
+
 
 class DocenteController extends Controller
 {
@@ -48,7 +50,7 @@ class DocenteController extends Controller
         // Crear nuevo docente
         Docente::create($validatedData);
 
-        return redirect()->route('docente.index')->with('success', 'Cohorte creada correctamente.');
+        return redirect()->route('docente.index')->with('success', 'Docente creado correctamente.');
 
     }
 
@@ -63,7 +65,7 @@ class DocenteController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Docente $docente)
     {
         return view('admin.docente.edit', compact('docente'));
     }
@@ -71,7 +73,7 @@ class DocenteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Auxiliar $docente)
+    public function update(Request $request, Docente $docente)
     {
         $validatedData = $request->validate([
             'nombre' => 'required|string|max:255',
@@ -85,7 +87,7 @@ class DocenteController extends Controller
             'area_conocimiento' => 'required|in:Ingenieria de Software,Telecomunicaciones,Bases de datos',
         ]);
         $docente->update($validatedData);
-
+        
         return redirect()->route('docente.index')->with('success', 'Docente actualizado correctamente.');
     }
 

@@ -41,7 +41,6 @@ Route::delete('admin/presidente/{presidente}', [PresidenteController::class, 'de
 
 
 // Rutas para Coordinador
-<<<<<<< HEAD
 Route::get('/admin/coordinador', [CoordinadorController::class, 'index'])->name('coordinador.index');
 Route::get('/coordinador/crear', [CoordinadorController::class, 'create'])->name('coordinador.create');
 Route::post('/coordinador', [CoordinadorController::class, 'store'])->name('coordinador.store');
@@ -49,14 +48,6 @@ Route::get('admin/coordinador/{id}/edit', [CoordinadorController::class, 'edit']
 Route::put('admin/coordinador/{id}', [CoordinadorController::class, 'update'])->name('coordinador.update');
 Route::delete('admin/coordinador/{id}', [CoordinadorController::class, 'destroy'])->name('coordinador.destroy');
 
-=======
-Route::get('admin/coordinador', [CoordinadorController::class, 'index'])->name('coordinador.index');
-Route::get('admin/coordinador/create', [CoordinadorController::class, 'create'])->name('coordinador.create');
-Route::post('admin/coordinador', [CoordinadorController::class, 'store'])->name('coordinador.store');
-Route::get('admin/coordinador/{coordinador}/edit', [CoordinadorController::class, 'edit'])->name('coordinador.edit');
-Route::put('admin/coordinador/{coordinador}', [CoordinadorController::class, 'update'])->name('coordinador.update');
-Route::delete('admin/coordinador/{coordinador}', [CoordinadorController::class, 'destroy'])->name('coordinador.destroy');
->>>>>>> 9379f6f6d516d80177ce5f373d9f0ba0e576004c
 
 
 // Rutas para Programa Académico
@@ -75,7 +66,6 @@ Route::post('admin/cohorte', [CohorteController::class, 'store'])->name('cohorte
 Route::get('admin/cohorte/{cohorte}/edit', [CohorteController::class, 'edit'])->name('cohorte.edit');
 Route::put('admin/cohorte/{cohorte}', [CohorteController::class, 'update'])->name('cohorte.update');
 Route::delete('admin/cohorte/{cohorte}', [CohorteController::class, 'destroy'])->name('cohorte.destroy');
-<<<<<<< HEAD
 
 //Rutas para Auxiliares
 Route::resource('auxiliar', AuxiliarController::class);
@@ -101,5 +91,5 @@ Route::post('/estudiante', [EstudianteController::class, 'store'])->name('estudi
 Route::get('admin/estudiante/{id}/edit', [EstudianteController::class, 'edit'])->name('estudiante.edit');
 Route::put('admin/estudiante/{id}', [EstudianteController::class, 'update'])->name('estudiante.update');
 Route::delete('admin/estudiante/{id}', [EstudianteController::class, 'destroy'])->name('estudiante.destroy');
-=======
->>>>>>> 9379f6f6d516d80177ce5f373d9f0ba0e576004c
+
+
