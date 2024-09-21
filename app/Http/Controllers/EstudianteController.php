@@ -13,11 +13,11 @@ class EstudianteController extends Controller
      */
     public function index()
     {
-    // Obtén los Estudiante y sus cohortes relacionadas
-    $estudiantes = Estudiante::with('cohorte')->get();
+        // Obtén los Estudiante y sus cohortes relacionadas
+        $estudiantes = Estudiante::with('cohorte')->get();
 
-    // Retorna la vista y pasa los datos
-    return view('admin.estudiante.index', compact('estudiantes'));
+        // Retorna la vista y pasa los datos
+        return view('admin.estudiante.index', compact('estudiantes'));
     }
 
     /**
@@ -63,10 +63,9 @@ class EstudianteController extends Controller
 
 
         // Guardar el coordinador en la base de datos
-        $estudiante->save();        
+        $estudiante->save();
         // Mensaje de éxito
         return redirect()->route('estudiante.index')->with('success', 'Estudiante creado correctamente.');
-
     }
 
     /**
@@ -82,8 +81,9 @@ class EstudianteController extends Controller
      */
     public function edit(string $id)
     {
-        $estudiante = Estudiante::all();
-        return view('admin.estudiante.edit', compact('estudiante'));
+        $estudiante = Estudiante::findOrFail($id);
+        $cohortes = Cohorte::all();
+        return view('admin.estudiante.edit', compact('estudiante', 'cohortes'));
     }
 
     /**
@@ -95,11 +95,11 @@ class EstudianteController extends Controller
             'nombre' => 'required|string|max:255',
             'cohorte_id' => 'required|exists:cohortes,id',
             'identificacion' => 'required|string|max:255',
-            'codigo_estudiantil' => 'required|string|max:255|unique:estudiantes,codigo_estudiantil',
+            'codigo_estudiantil' => 'required|string|max:255|unique:estudiantes,codigo_estudiantil,' . $estudiante->id,
+            'correo' => 'required|email|unique:estudiantes,correo,' . $estudiante->id,
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'direccion' => 'required|string|max:255',
             'telefono' => 'required|string|max:255',
-            'correo' => 'required|email|unique:estudiantes',
             'genero' => 'required|in:Masculino,Femenino,Otro',
             'fecha_nacimiento' => 'required|date',
             'semestre' => 'required|integer|min:1',

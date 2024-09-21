@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Model;
 
 class Auxiliar extends Authenticatable
 {
@@ -24,6 +25,7 @@ class Auxiliar extends Authenticatable
         'password',
     ];
 
+
     protected $hidden = [
         'password',
         'remember_token',
@@ -34,7 +36,8 @@ class Auxiliar extends Authenticatable
     ];
 
     // Relación con Programa Académico
-    public function programa() {
-        return $this->belongsTo(ProgramaAcademico::class, 'programa_id');
+    public function programa()
+    {
+        return $this->belongsTo(ProgramaAcademico::class, 'programa_academico_id');
     }
 }

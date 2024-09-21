@@ -28,7 +28,6 @@ class Coordinador extends Authenticatable
         'fecha_nacimiento',
         'fecha_vinculacion',
         'acuerdo_vinculacion',
-        'password',
     ];
 
     // Ocultar los campos sensibles

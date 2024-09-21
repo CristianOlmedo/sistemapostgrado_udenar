@@ -50,8 +50,8 @@
         </div>
 
         <div class="form-group">
-            <label for="departamento">Departamento o Facultad</label>
-            <input type="text" name="departamento" id="departamento" class="form-control" required>
+            <label for="departamento_o_facultad">Departamento o Facultad</label>
+            <input type="text" name="departamento_o_facultad" id="departamento_o_facultad" class="form-control" required>
         </div>
 
         <div class="form-group">

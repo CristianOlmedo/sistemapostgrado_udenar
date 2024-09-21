@@ -35,16 +35,18 @@
         </div>
 
         <div class="form-group">
-            <label for="programa_id">Programa Académico</label>
-            <select name="programa_id" class="form-control" required>
+            <label for="programa_academico_id">Programa Académico</label>
+            <select name="programa_academico_id" class="form-control" required>
                 <option value="">Seleccione un programa</option>
                 @foreach ($programas as $programa)
-                    <option value="{{ $programa->id }}" {{ old('programa_id') == $programa->id ? 'selected' : '' }}>
+                    <option value="{{ $programa->id }}"
+                        {{ old('programa_academico_id') == $programa->id ? 'selected' : '' }}>
                         {{ $programa->nombre_programa }}
                     </option>
                 @endforeach
             </select>
         </div>
+
 
         <div class="form-group">
             <label for="genero">Género</label>
@@ -68,11 +70,6 @@
         <div class="form-group">
             <label for="acuerdo_vinculacion">Acuerdo de Vinculación</label>
             <input type="file" name="acuerdo_vinculacion" id="acuerdo_vinculacion" class="form-control">
-        </div>
-
-        <div class="form-group">
-            <label for="password">Contraseña</label>
-            <input type="password" name="password" id="password" class="form-control" required>
         </div>
 
         <button type="submit" class="btn btn-primary">Crear Coordinador</button>

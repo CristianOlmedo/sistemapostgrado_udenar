@@ -76,7 +76,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="fecha_vinculacion">Fecha de Nacimiento</label>fecha_vinculacion
+                    <label for="fecha_vinculacion">fecha_vinculacion</label>
                     <input type="date" name="fecha_vinculacion" class="form-control" value="{{ old('fecha_vinculacion', $auxiliar->fecha_vinculacion) }}" required>
                 </div>
 

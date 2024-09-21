@@ -24,79 +24,73 @@
                 @method('PUT')
 
                 <div class="form-group">
-                    <label for="nombre">Nombre Completo</label>
-                    <input type="text" name="nombre" class="form-control" value="{{ old('nombre', $presidente->nombre) }}"
-                        required>
+                    <label for="nombre_completo">Nombre completo</label>
+                    <input type="text" name="nombre_completo" id="nombre_completo" class="form-control" required
+                        value="{{ old('nombre_completo', $presidente->nombre_completo ?? '') }}">
                 </div>
 
                 <div class="form-group">
-                    <label for="correo">Correo Electrónico</label>
-                    <input type="email" name="correo" class="form-control"
-                        value="{{ old('correo', $presidente->correo) }}" required>
+                    <label for="correo_electronico">Correo electrónico</label>
+                    <input type="email" name="correo_electronico" id="correo_electronico" class="form-control" required
+                        value="{{ old('correo_electronico', $presidente->correo_electronico ?? '') }}">
                 </div>
 
                 <div class="form-group">
-                    <label for="identificacion">Número de Identificación</label>
-                    <input type="text" name="identificacion" class="form-control"
-                        value="{{ old('identificacion', $presidente->identificacion) }}" required>
+                    <label for="numero_identificacion">Número de identificación</label>
+                    <input type="text" name="numero_identificacion" id="numero_identificacion" class="form-control"
+                        required value="{{ old('numero_identificacion', $presidente->numero_identificacion ?? '') }}">
                 </div>
 
                 <div class="form-group">
                     <label for="telefono">Teléfono</label>
-                    <input type="text" name="telefono" class="form-control"
-                        value="{{ old('telefono', $presidente->telefono) }}" required>
+                    <input type="text" name="telefono" id="telefono" class="form-control" required
+                        value="{{ old('telefono', $presidente->telefono ?? '') }}">
                 </div>
 
                 <div class="form-group">
                     <label for="direccion">Dirección</label>
-                    <input type="text" name="direccion" class="form-control"
-                        value="{{ old('direccion', $presidente->direccion) }}" required>
+                    <input type="text" name="direccion" id="direccion" class="form-control"
+                        value="{{ old('direccion', $presidente->direccion ?? '') }}">
                 </div>
 
                 <div class="form-group">
-                    <label for="departamento">Departamento o Facultad</label>
-                    <input type="text" name="departamento" class="form-control"
-                        value="{{ old('departamento', $presidente->departamento) }}" required>
+                    <label for="fecha_nacimiento">Fecha de nacimiento</label>
+                    <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control"
+                        value="{{ old('fecha_nacimiento', $presidente->fecha_nacimiento ?? '') }}">
                 </div>
 
                 <div class="form-group">
-                    <label for="programa_academico_id">Programa Académico</label>
-                    <select name="programa_academico_id" class="form-control" required>
-                        <option value="">Seleccione un programa</option>
-                        @foreach ($programas as $programa)
-                            <option value="{{ $programa->id }}"
-                                {{ old('programa_academico_id', $presidente->programa_academico_id) == $programa->id ? 'selected' : '' }}>
-                                {{ $programa->nombre_programa }}
-                            </option>
-                        @endforeach
-                    </select>
+                    <label for="fecha_inicio_gestion">Fecha de inicio de gestión</label>
+                    <input type="date" name="fecha_inicio_gestion" id="fecha_inicio_gestion" class="form-control"
+                        required value="{{ old('fecha_inicio_gestion', $presidente->fecha_inicio_gestion ?? '') }}">
                 </div>
 
                 <div class="form-group">
-                    <label for="fecha_nacimiento">Fecha de Nacimiento (opcional)</label>
-                    <input type="date" name="fecha_nacimiento" class="form-control"
-                        value="{{ old('fecha_nacimiento', $presidente->fecha_nacimiento) }}">
+                    <label for="fecha_fin_gestion">Fecha de fin de gestión</label>
+                    <input type="date" name="fecha_fin_gestion" id="fecha_fin_gestion" class="form-control"
+                        value="{{ old('fecha_fin_gestion', $presidente->fecha_fin_gestion ?? '') }}">
                 </div>
 
                 <div class="form-group">
-                    <label for="fecha_inicio_gestion">Fecha de Inicio de Gestión</label>
-                    <input type="date" name="fecha_inicio_gestion" class="form-control"
-                        value="{{ old('fecha_inicio_gestion', $presidente->fecha_inicio_gestion) }}" required>
+                    <label for="departamento_o_facultad">Departamento o Facultad</label>
+                    <input type="text" name="departamento_o_facultad" id="departamento_o_facultad" class="form-control"
+                        required value="{{ old('departamento_o_facultad', $presidente->departamento_o_facultad ?? '') }}">
                 </div>
 
                 <div class="form-group">
-                    <label for="fecha_fin_gestion">Fecha de Fin de Gestión (opcional)</label>
-                    <input type="date" name="fecha_fin_gestion" class="form-control"
-                        value="{{ old('fecha_fin_gestion', $presidente->fecha_fin_gestion) }}">
+                    <label for="programa_academico">Programa Académico:</label>
+                    <input type="text" name="programa_academico" id="programa_academico" class="form-control" required
+                        value="{{ old('programa_academico', $presidente->programa_academico ?? '') }}">
                 </div>
 
                 <div class="form-group">
                     <label for="estado">Estado</label>
-                    <select name="estado" class="form-control" required>
-                        <option value="Activo" {{ old('estado', $presidente->estado) == 'Activo' ? 'selected' : '' }}>
-                            Activo</option>
-                        <option value="Inactivo" {{ old('estado', $presidente->estado) == 'Inactivo' ? 'selected' : '' }}>
-                            Inactivo</option>
+                    <select name="estado" id="estado" class="form-control" required>
+                        <option value="Activo"
+                            {{ old('estado', $presidente->estado ?? '') == 'Activo' ? 'selected' : '' }}>Activo</option>
+                        <option value="Inactivo"
+                            {{ old('estado', $presidente->estado ?? '') == 'Inactivo' ? 'selected' : '' }}>Inactivo
+                        </option>
                     </select>
                 </div>
 

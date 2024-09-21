@@ -50,7 +50,7 @@ class PresidenteController extends Controller
             $file->storeAs('resoluciones', $filename, 'public');
             $validatedData['resoluciones'] = $filename;
         }
-
+        Log::info('Este es un mensaje de prueba para crear el archivo laravel.log');
         try {
             Presidente::create($validatedData);
             Session::flash('swal:success', 'Presidente creado correctamente.');
@@ -73,14 +73,14 @@ class PresidenteController extends Controller
     {
         $validatedData = $request->validate([
             'nombre_completo' => 'required|string|max:255',
-            'correo' => 'required|email|max:255',
-            'identificacion' => 'required|string|max:20',
+            'correo_electronico' => 'required|email|max:255',
+            'numero_identificacion' => 'required|string|max:20',
             'telefono' => 'required|string|max:20',
             'direccion' => 'nullable|string|max:255',
             'fecha_nacimiento' => 'nullable|date',
             'fecha_inicio_gestion' => 'required|date',
             'fecha_fin_gestion' => 'nullable|date',
-            'departamento' => 'required|string|max:255',
+            'departamento_o_facultad' => 'required|string|max:255',
             'programa_academico' => 'required|string|max:255',
             'estado' => 'required|string|max:10',
             'resoluciones' => 'nullable|file|mimes:pdf|max:2048',
@@ -97,12 +97,5 @@ class PresidenteController extends Controller
             Session::flash('swal:error', 'Error al actualizar el presidente.');
             return redirect()->back()->withInput();
         }
-    }
-
-    public function destroy(Presidente $presidente)
-    {
-        $presidente->delete();
-        Session::flash('swal:success', 'Presidente eliminado correctamente.');
-        return redirect()->route('presidente.index');
     }
 }

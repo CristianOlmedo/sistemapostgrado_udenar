@@ -13,11 +13,11 @@ class AuxiliarController extends Controller
      */
     public function index()
     {
-    // Obtén los auxiliares y sus programas académicos relacionados
-    $auxiliares = Auxiliar::with('programa')->get();
+        // Obtén los auxiliares y sus programas académicos relacionados
+        $auxiliares = Auxiliar::with('programa')->get();
 
-    // Retorna la vista y pasa los datos
-    return view('admin.auxiliar.index', compact('auxiliares'));
+        // Retorna la vista y pasa los datos
+        return view('admin.auxiliar.index', compact('auxiliares'));
     }
 
     /**
@@ -59,10 +59,9 @@ class AuxiliarController extends Controller
         }
 
         // Guardar el coordinador en la base de datos
-        $auxiliar->save();        
+        $auxiliar->save();
         // Mensaje de éxito
         return redirect()->route('auxiliar.index')->with('success', 'Auxiliar creado correctamente.');
-
     }
 
     /**
@@ -89,20 +88,31 @@ class AuxiliarController extends Controller
     {
         $validatedData = $request->validate([
             'nombre' => 'required|string|max:255',
-            'identificacion' => 'required|string|max:255|unique:auxiliars,identificacion',
+            'identificacion' => 'required|string|max:255|unique:auxiliars,identificacion,' . $auxiliar->id,
             'programa_academico_id' => 'required|exists:programa_academicos,id',
             'direccion' => 'required|string|max:255',
             'telefono' => 'required|string|max:255',
-            'correo' => 'required|email|max:255|unique:auxiliars,correo',
+            'correo' => 'required|email|max:255|unique:auxiliars,correo,' . $auxiliar->id,
             'genero' => 'required|in:Masculino,Femenino,Otro',
             'fecha_nacimiento' => 'required|date',
             'fecha_vinculacion' => 'required|date',
             'acuerdo_vinculacion' => 'nullable|file|mimes:pdf|max:2048',
         ]);
+
+        // Actualizar el auxiliar con los datos validados
         $auxiliar->update($validatedData);
+
+        // Si se carga un nuevo archivo, reemplazar el anterior
+        if ($request->hasFile('acuerdo_vinculacion')) {
+            $filePath = $request->file('acuerdo_vinculacion')->store('acuerdos_vinculacion');
+            $auxiliar->acuerdo_vinculacion = $filePath;
+        }
+
+        $auxiliar->save();
 
         return redirect()->route('auxiliar.index')->with('success', 'Auxiliar actualizado correctamente.');
     }
+
 
     /**
      * Remove the specified resource from storage.

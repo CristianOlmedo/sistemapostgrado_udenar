@@ -16,56 +16,61 @@
         </button>
     </form>
 
-    {{-- Tabla de programas académicos --}}
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>código estudiantíl</th>
-                <th>Cohorte</th>
-                <th>Nombre Estudiante</th>
-                <th>Identificación</th>
-                <th>Foto</th>
-                <th>Dirección</th>
-                <th>Telefono</th>
-                <th>Correo</th>
-                <th>Genero</th>
-                <th>Fecha de Nacimiento</th>
-                <th>Semestre</th>
-                <th>Fecha de Ingreso</th>
-                <th>Fecha de Egreso</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($estudiantes as $estudiante)
+    {{-- Tabla de estudiantes con scroll horizontal --}}
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $estudiante->codigo_estudiantil }}</td>
-                    <td>{{ $estudiante->nombre }}</td>
-                    <td>{{ $estudiante->cohorte->nombre ?? 'N/A'  }}</td>
-                    <td>{{ $estudiante->identificacion }}</td>
-                    <td>
-                        <img src="{{ asset('storage/' . $estudiante->foto) }}" alt="Foto" width="100">
-                    </td>
-                    <td>{{ $estudiante->correo }}</td>
-                    <td>{{ $estudiante->genero }}</td>
-                    <td>{{ $estudiante->fecha_nacimiento}}</td>
-                    <td>{{ $estudiante->semestre }}</td>
-                    <td>{{ $estudiante->fecha_ingreso}}</td>
-                    <td>{{ $estudiante->fecha_egreso}}</td>
-                    <td>
-                        {{-- Botones de editar y eliminar --}}
-                        <a href="{{ route('estudiante.edit', $estudiante->id) }}" class="btn btn-sm btn-warning">Editar</a>
-                        <form action="{{ route('estudiante.destroy', $estudiante->id) }}" method="POST" style="display:inline;" id="delete-form-{{ $estudiante->id }}">
-                            @csrf
-                            @method('DELETE')
-                            <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $estudiante->id }})">Eliminar</button>
-                        </form>
-                    </td>
+                    <th>#</th>
+                    <th>Código estudiantíl</th>
+                    <th>Cohorte</th>
+                    <th>Nombre Estudiante</th>
+                    <th>Identificación</th>
+                    <th>Foto</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
+                    <th>Género</th>
+                    <th>Fecha de Nacimiento</th>
+                    <th>Semestre</th>
+                    <th>Fecha de Ingreso</th>
+                    <th>Fecha de Egreso</th>
+                    <th>Acciones</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach ($estudiantes as $estudiante)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $estudiante->codigo_estudiantil }}</td>
+                        <td>{{ $estudiante->cohorte->nombre ?? 'N/A' }}</td>
+                        <td>{{ $estudiante->nombre }}</td>
+                        <td>{{ $estudiante->identificacion }}</td>
+                        <td>
+                            <img src="{{ asset('storage/' . $estudiante->foto) }}" alt="Foto" width="100">
+                        </td>
+                        <td>{{ $estudiante->direccion }}</td>
+                        <td>{{ $estudiante->telefono }}</td>
+                        <td>{{ $estudiante->correo }}</td>
+                        <td>{{ $estudiante->genero }}</td>
+                        <td>{{ $estudiante->fecha_nacimiento }}</td>
+                        <td>{{ $estudiante->semestre }}</td>
+                        <td>{{ $estudiante->fecha_ingreso }}</td>
+                        <td>{{ $estudiante->fecha_egreso }}</td>
+                        <td>
+                            {{-- Botones de editar y eliminar --}}
+                            <a href="{{ route('estudiante.edit', $estudiante->id) }}" class="btn btn-sm btn-warning">Editar</a>
+                            <form action="{{ route('estudiante.destroy', $estudiante->id) }}" method="POST" style="display:inline;" id="delete-form-{{ $estudiante->id }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $estudiante->id }})">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 @stop
 
 @section('css')

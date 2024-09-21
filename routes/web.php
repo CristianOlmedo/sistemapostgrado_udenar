@@ -13,18 +13,6 @@ use Illuminate\Support\Facades\Auth;
 
 
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-
 Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -42,12 +30,11 @@ Route::delete('admin/presidente/{presidente}', [PresidenteController::class, 'de
 
 // Rutas para Coordinador
 Route::get('/admin/coordinador', [CoordinadorController::class, 'index'])->name('coordinador.index');
-Route::get('/coordinador/crear', [CoordinadorController::class, 'create'])->name('coordinador.create');
-Route::post('/coordinador', [CoordinadorController::class, 'store'])->name('coordinador.store');
-Route::get('admin/coordinador/{id}/edit', [CoordinadorController::class, 'edit'])->name('coordinador.edit');
-Route::put('admin/coordinador/{id}', [CoordinadorController::class, 'update'])->name('coordinador.update');
-Route::delete('admin/coordinador/{id}', [CoordinadorController::class, 'destroy'])->name('coordinador.destroy');
-
+Route::get('/admin/coordinador/crear', [CoordinadorController::class, 'create'])->name('coordinador.create');
+Route::post('/admin/coordinador', [CoordinadorController::class, 'store'])->name('coordinador.store');
+Route::get('/admin/coordinador/{coordinador}/edit', [CoordinadorController::class, 'edit'])->name('coordinador.edit');
+Route::put('/admin/coordinador/{coordinador}', [CoordinadorController::class, 'update'])->name('coordinador.update');
+Route::delete('/admin/coordinador/{coordinador}', [CoordinadorController::class, 'destroy'])->name('coordinador.destroy');
 
 
 // Rutas para Programa Académico
@@ -89,7 +76,5 @@ Route::get('/admin/estudiante', [EstudianteController::class, 'index'])->name('e
 Route::get('/estudiante/crear', [EstudianteController::class, 'create'])->name('estudiante.create');
 Route::post('/estudiante', [EstudianteController::class, 'store'])->name('estudiante.store');
 Route::get('admin/estudiante/{id}/edit', [EstudianteController::class, 'edit'])->name('estudiante.edit');
-Route::put('admin/estudiante/{id}', [EstudianteController::class, 'update'])->name('estudiante.update');
+Route::put('admin/estudiante/{estudiante}', [EstudianteController::class, 'update'])->name('estudiante.update');
 Route::delete('admin/estudiante/{id}', [EstudianteController::class, 'destroy'])->name('estudiante.destroy');
-
-

@@ -51,7 +51,6 @@ class DocenteController extends Controller
         Docente::create($validatedData);
 
         return redirect()->route('docente.index')->with('success', 'Docente creado correctamente.');
-
     }
 
     /**
@@ -65,10 +64,12 @@ class DocenteController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Docente $docente)
+    public function edit($id)
     {
+        $docente = Docente::findOrFail($id); // Asegúrate de que este método sea correcto
         return view('admin.docente.edit', compact('docente'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -77,19 +78,22 @@ class DocenteController extends Controller
     {
         $validatedData = $request->validate([
             'nombre' => 'required|string|max:255',
-            'identificacion' => 'required|string|max:255|unique:auxiliars,identificacion',
+            'identificacion' => 'required|string|max:255|unique:auxiliars,identificacion,' . $docente->id,
             'direccion' => 'required|string|max:255',
             'telefono' => 'required|string|max:255',
-            'correo' => 'required|email|unique:auxiliars',
+            'correo' => 'required|email|unique:auxiliars,correo,' . $docente->id,
             'genero' => 'required|in:Masculino,Femenino,Otro',
             'fecha_nacimiento' => 'required|date',
             'formacion_academica' => 'required|in:Pregrado,Postgrado',
             'area_conocimiento' => 'required|in:Ingenieria de Software,Telecomunicaciones,Bases de datos',
         ]);
+
+        // Actualiza el docente
         $docente->update($validatedData);
-        
+
         return redirect()->route('docente.index')->with('success', 'Docente actualizado correctamente.');
     }
+
 
     /**
      * Remove the specified resource from storage.

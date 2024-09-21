@@ -36,7 +36,6 @@ class CoordinadorController extends Controller
             'fecha_nacimiento' => 'nullable|date',
             'fecha_vinculacion' => 'required|date',
             'acuerdo_vinculacion' => 'nullable|file|mimes:pdf|max:2048',
-            'password' => 'required|string|min:8|confirmed',
         ]);
 
         try {

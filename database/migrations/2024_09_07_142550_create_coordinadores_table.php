@@ -20,7 +20,6 @@ class CreateCoordinadoresTable extends Migration
             $table->date('fecha_nacimiento');
             $table->date('fecha_vinculacion');
             $table->string('acuerdo_vinculacion');
-            $table->string('password');
             $table->timestamps();
         });
     }
